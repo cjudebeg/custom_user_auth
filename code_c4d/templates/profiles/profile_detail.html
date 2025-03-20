@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">My Profile</h2>
+        <div>
+            <a href="{% url 'profile_update' %}" class="btn btn-primary">Edit Profile</a>
+            <a href="{% url 'user_update' %}" class="btn btn-outline-secondary">Account Settings</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Personal Information</h4>
+                <table class="table">
+                    <tr>
+                        <th>Email:</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Name:</th>
+                        <td>
+                            {% if user.first_name or user.last_name %}
+                                {{ user.first_name }} {% if profile.middle_name %}{{ profile.middle_name }} {% endif %}{{ user.last_name }}
+                            {% else %}
+                                Not provided
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth:</th>
+                        <td>{{ profile.date_of_birth|default:"Not provided" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Location:</th>
+                        <td>
+                            {% if profile.suburb or profile.state %}
+                                {% if profile.suburb %}{{ profile.suburb }}{% endif %}
+                                {% if profile.suburb and profile.state %}, {% endif %}
+                                {% if profile.state %}{{ profile.state }}{% endif %}
+                            {% else %}
+                                Not provided
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="col-md-6">
+                <h4>Professional Information</h4>
+                <table class="table">
+                    <tr>
+                        <th>Clearance Level:</th>
+                        <td>{{ profile.clearance_level|default:"None" }}</td>
+                    </tr>
+                    {% if profile.clearance_level != "None" %}
+                    <tr>
+                        <th>Clearance Number:</th>
+                        <td>{{ profile.clearance_no|default:"Not provided" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Clearance Expiry:</th>
+                        <td>{{ profile.clearance_expiry|default:"Not provided" }}</td>
+                    </tr>
+                    {% endif %}
+                    <tr>
+                        <th>Skills:</th>
+                        <td>{{ profile.skill_sets|linebreaks|default:"Not provided" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Skill Level:</th>
+                        <td>{{ profile.skill_level|default:"Not provided" }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="mt-4 d-flex justify-content-between">
+            <div>
+                <p>
+                    <strong>Onboarding Status:</strong>
+                    {% if profile.onboarding_completed %}
+                        <span class="badge bg-success">Completed</span>
+                    {% else %}
+                        <span class="badge bg-warning text-dark">Incomplete</span>
+                        <a href="{% url 'onboarding' %}" class="btn btn-sm btn-outline-primary ms-2">Complete Onboarding</a>
+                    {% endif %}
+                </p>
+            </div>
+            <div>
+                <a href="{% url 'user_delete' %}" class="btn btn-danger">Delete Account</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

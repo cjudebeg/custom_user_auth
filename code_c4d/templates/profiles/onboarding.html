@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Complete Onboarding{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Complete Your Onboarding</h2>
+    </div>
+    <div class="card-body">
+        <p class="lead">Please fill out your profile information to complete the onboarding process.</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Personal Information</h4>
+                    <div class="mb-3">
+                        {{ form.first_name.label_tag }}
+                        {{ form.first_name }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.middle_name.label_tag }}
+                        {{ form.middle_name }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.last_name.label_tag }}
+                        {{ form.last_name }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.date_of_birth.label_tag }}
+                        {{ form.date_of_birth }}
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <h4>Location</h4>
+                    <div class="mb-3">
+                        {{ form.state.label_tag }}
+                        {{ form.state }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.suburb.label_tag }}
+                        {{ form.suburb }}
+                    </div>
+                    
+                    <h4>Skills</h4>
+                    <div class="mb-3">
+                        {{ form.skill_sets.label_tag }}
+                        {{ form.skill_sets }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.skill_level.label_tag }}
+                        {{ form.skill_level }}
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <h4>Security Clearance</h4>
+                    <div class="mb-3">
+                        {{ form.clearance_level.label_tag }}
+                        {{ form.clearance_level }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.clearance_no.label_tag }}
+                        {{ form.clearance_no }}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.clearance_expiry.label_tag }}
+                        {{ form.clearance_expiry }}
+                    </div>
+                    <!-- Onboarding checkbox is hidden and will be set to True when form is submitted -->
+                    {{ form.onboarding_completed.as_hidden }}
+                </div>
+            </div>
+            
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Complete Onboarding</button>
+                <a href="{% url 'dashboard' %}" class="btn btn-outline-secondary">Skip for Now</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
