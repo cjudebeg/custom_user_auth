@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/begley/REPO_ITERATION_03/code/code_c4d/venv"
+set -gx VIRTUAL_ENV "/home/begley/REPO_03/code/custom_user_auth/code_c4d/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

@@ -23,7 +23,7 @@ class SignUpView(CreateView):
 
     form_class = CustomUserCreationForm
     template_name = "registration/signup.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("account_login")
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -38,7 +38,7 @@ class CombinedSignUpView(CreateView):
 
     form_class = UserProfileForm
     template_name = "registration/signup_with_profile.html"
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("account_login")
 
     def form_valid(self, form):
         # Create the user first
@@ -51,7 +51,7 @@ class CombinedSignUpView(CreateView):
 
         # Profile should be created via signal, so we just need to update it
         profile = user.profile
-        profile.second_name = form.cleaned_data.get("middle_name", "")
+        profile.middle_name = form.cleaned_data.get("middle_name", "")
         profile.state = form.cleaned_data.get("state", "")
         profile.save()
 
